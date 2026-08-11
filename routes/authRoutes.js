@@ -3,23 +3,48 @@ const User = require("../models/User");
 
 const router = express.Router();
 
+// Register Page
 router.get("/register", (req, res) => {
     res.render("register");
 });
 
+// Register User
 router.post("/register", async (req, res) => {
-    const { name, email, password, role } = req.body;
+    try {
+        const { name, email, password, role } = req.body;
 
-    const user = new User({
-        name,
-        email,
-        password,
-        role
-    });
+        // Basic validation
+        if (!name || !email || !password || !role) {
+            return res.send("All fields are required");
+        }
 
-    await user.save();
+        if (password.length < 6) {
+            return res.send("Password must be at least 6 characters");
+        }
 
-    res.send("Registration successful");
+        // Check existing email
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.send("Email already registered");
+        }
+
+        // Create new user
+        const user = new User({
+            name,
+            email,
+            password,
+            role
+        });
+
+        await user.save();
+
+        res.send("Registration successful");
+
+    } catch (err) {
+        console.log(err);
+        res.send("Something went wrong");
+    }
 });
 
 module.exports = router;
