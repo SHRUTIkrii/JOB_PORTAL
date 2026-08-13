@@ -74,12 +74,40 @@ router.post("/login", async (req, res) => {
             return res.send("Invalid email or password");
         }
 
-        res.send("Login successful");
+        req.session.userId = user._id;
+        req.session.role = user.role;
+
+        res.redirect("/dashboard");
 
     } catch (err) {
         console.log(err);
         res.send("Something went wrong");
     }
+});
+
+// Dashboard
+router.get("/dashboard", (req, res) => {
+
+    if (!req.session.userId) {
+        return res.redirect("/login");
+    }
+
+    res.send("Welcome to Dashboard");
+
+});
+
+// Logout
+router.get("/logout", (req, res) => {
+
+    req.session.destroy((err) => {
+
+        if (err) {
+            return res.send("Logout failed");
+        }
+
+        res.redirect("/");
+    });
+
 });
 
 module.exports = router;
