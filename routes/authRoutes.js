@@ -76,8 +76,18 @@ router.post("/login", async (req, res) => {
 
         req.session.userId = user._id;
         req.session.role = user.role;
+        console.log("SESSION:", req.session);
 
-        res.redirect("/dashboard");
+        // Role based redirect
+        if (user.role === "jobseeker") {
+            return res.redirect("/jobseeker");
+        }
+
+        if (user.role === "recruiter") {
+            return res.redirect("/recruiter");
+        }
+
+        res.send("Invalid role");
 
     } catch (err) {
         console.log(err);
@@ -85,15 +95,34 @@ router.post("/login", async (req, res) => {
     }
 });
 
-// Dashboard
-router.get("/dashboard", (req, res) => {
+// Job Seeker Dashboard
+router.get("/jobseeker", (req, res) => {
 
     if (!req.session.userId) {
         return res.redirect("/login");
     }
 
-    res.send("Welcome to Dashboard");
+    if (req.session.role !== "jobseeker") {
+        return res.send("Access denied");
+    }
 
+    res.render("jobseeker");
+});
+
+// Recruiter Dashboard
+router.get("/recruiter", (req, res) => {
+
+    console.log("RECRUITER SESSION:", req.session);
+
+    if (!req.session.userId) {
+        return res.redirect("/login");
+    }
+
+    if (req.session.role !== "recruiter") {
+        return res.send("Access denied");
+    }
+
+    res.render("recruiter");
 });
 
 // Logout
