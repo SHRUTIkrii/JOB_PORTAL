@@ -19,17 +19,23 @@ app.use(session({
 }));
 
 const authRoutes = require("./routes/authRoutes");
+const jobRoutes = require("./routes/jobRoutes");
 
 app.use("/", authRoutes);
+app.use("/", jobRoutes);
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
+
         console.log("MongoDB Connected");
 
         app.listen(3000, () => {
             console.log("Server running on port 3000");
         });
+
     })
     .catch((err) => {
+
         console.log("MongoDB connection error:", err);
+
     });
