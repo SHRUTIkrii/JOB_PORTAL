@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Job</title>
+</head>
+<body>
+
+    <h1>Post a New Job</h1>
+
+    <form action="/recruiter/post-job" method="POST">
+
+        <label>Job Title</label>
+        <input type="text" name="title" required>
+
+        <br><br>
+
+        <label>Company</label>
+        <input type="text" name="company" required>
+
+        <br><br>
+
+        <label>Location</label>
+        <input type="text" name="location" required>
+
+        <br><br>
+
+        <label>Salary</label>
+        <input type="text" name="salary" required>
+
+        <br><br>
+
+        <label>Skills</label>
+        <input type="text" name="skills" required>
+
+        <br><br>
+
+        <label>Description</label>
+        <textarea name="description" required></textarea>
+
+        <br><br>
+
+        <button type="submit">Post Job</button>
+
+    </form>
+
+</body>
+</html>

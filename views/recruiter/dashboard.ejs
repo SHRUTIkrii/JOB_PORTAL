@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recruiter Dashboard</title>
+</head>
+<body>
+
+    <h1>Recruiter Dashboard</h1>
+
+    <a href="/recruiter/post-job">Post a New Job</a>
+
+    <h2>My Jobs</h2>
+
+    <% if (jobs.length === 0) { %>
+
+        <p>You have not posted any jobs yet.</p>
+
+    <% } else { %>
+
+        <% jobs.forEach(job => { %>
+
+            <div>
+                <h3><%= job.title %></h3>
+
+                <p>Company: <%= job.company %></p>
+
+                <p>Location: <%= job.location %></p>
+
+                <p>Salary: <%= job.salary %></p>
+
+                <p>Skills: <%= job.skills %></p>
+
+                <p><%= job.description %></p>
+
+                <hr>
+            </div>
+
+        <% }) %>
+
+    <% } %>
+
+</body>
+</html>

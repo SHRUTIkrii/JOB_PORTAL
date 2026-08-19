@@ -26,15 +26,15 @@ const jobSchema = new mongoose.Schema({
         required: true
     },
 
+    skills: {
+        type: String,
+        required: true
+    },
+
     recruiter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
-    },
-
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
 });
 
