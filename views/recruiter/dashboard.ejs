@@ -1,43 +1,122 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>Recruiter Dashboard</title>
+
 </head>
+
+
 <body>
 
     <h1>Recruiter Dashboard</h1>
 
-    <a href="/recruiter/post-job">Post a New Job</a>
+
+    <p>
+        Welcome Recruiter!
+    </p>
+
+
+    <a href="/post-job">
+        Post a New Job
+    </a>
+
+    <br><br>
+
+
+    <a href="/jobs">
+        View All Jobs
+    </a>
+
+    <br><br>
+
+
+    <a href="/logout">
+        Logout
+    </a>
+
+
+    <hr>
+
 
     <h2>My Jobs</h2>
 
+
     <% if (jobs.length === 0) { %>
 
-        <p>You have not posted any jobs yet.</p>
+        <p>
+            You have not posted any jobs yet.
+        </p>
 
     <% } else { %>
+
 
         <% jobs.forEach(job => { %>
 
             <div>
-                <h3><%= job.title %></h3>
 
-                <p>Company: <%= job.company %></p>
+                <h3>
+                    <%= job.title %>
+                </h3>
 
-                <p>Location: <%= job.location %></p>
 
-                <p>Salary: <%= job.salary %></p>
+                <p>
+                    <strong>Company:</strong>
+                    <%= job.company %>
+                </p>
 
-                <p>Skills: <%= job.skills %></p>
 
-                <p><%= job.description %></p>
+                <p>
+                    <strong>Location:</strong>
+                    <%= job.location %>
+                </p>
+
+
+                <p>
+                    <strong>Salary:</strong>
+                    <%= job.salary %>
+                </p>
+
+
+                <p>
+                    <strong>Skills:</strong>
+                    <%= job.skills %>
+                </p>
+
+
+                <p>
+                    <strong>Description:</strong>
+                    <%= job.description %>
+                </p>
+
+
+                <a href="/edit-job/<%= job._id %>">
+                    Edit
+                </a>
+
+
+                &nbsp;
+
+
+                <a
+                    href="/delete-job/<%= job._id %>"
+                    onclick="return confirm('Are you sure you want to delete this job?')"
+                >
+                    Delete
+                </a>
+
 
                 <hr>
+
             </div>
 
         <% }) %>
 
+
     <% } %>
 
+
 </body>
+
 </html>

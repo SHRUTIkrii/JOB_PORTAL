@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const User = require("../models/User");
+const User = require("../models/user");
+const Job = require("../models/job");
 
 const router = express.Router();
 
@@ -110,19 +111,41 @@ router.get("/jobseeker", (req, res) => {
 });
 
 // Recruiter Dashboard
-router.get("/recruiter", (req, res) => {
+router.get("/recruiter", async (req, res) => {
 
-    console.log("RECRUITER SESSION:", req.session);
+    try {
 
-    if (!req.session.userId) {
-        return res.redirect("/login");
+        console.log("RECRUITER SESSION:", req.session);
+
+
+        if (!req.session.userId) {
+            return res.redirect("/login");
+        }
+
+
+        if (req.session.role !== "recruiter") {
+            return res.send("Access denied");
+        }
+
+
+        const jobs = await Job.find({
+            recruiter: req.session.userId
+        });
+
+
+        res.render("recruiter/dashboard", {
+            jobs: jobs
+        });
+
+
+    } catch (err) {
+
+        console.log(err);
+
+        res.send("Something went wrong");
+
     }
 
-    if (req.session.role !== "recruiter") {
-        return res.send("Access denied");
-    }
-
-    res.render("recruiter");
 });
 
 // Logout
