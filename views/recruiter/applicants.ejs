@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Job Applicants</title>
+
+</head>
+
+
+<body>
+
+    <h1>
+        Applicants
+    </h1>
+
+
+    <h2>
+        <%= job.title %>
+    </h2>
+
+
+    <p>
+        Company:
+        <%= job.company %>
+    </p>
+
+
+    <a href="/recruiter">
+        Back to Dashboard
+    </a>
+
+
+    <hr>
+
+
+    <% if (applications.length === 0) { %>
+
+        <p>
+            No one has applied for this job yet.
+        </p>
+
+    <% } else { %>
+
+
+        <% applications.forEach(application => { %>
+
+            <div>
+
+                <h3>
+                    Applicant
+                </h3>
+
+
+                <% if (application.applicant) { %>
+
+                    <p>
+
+                        <strong>Name:</strong>
+
+                        <%= application.applicant.name %>
+
+                    </p>
+
+
+                    <p>
+
+                        <strong>Email:</strong>
+
+                        <%= application.applicant.email %>
+
+                    </p>
+
+                <% } %>
+
+
+                <p>
+
+                    <strong>Status:</strong>
+
+                    <%= application.status %>
+
+                </p>
+
+
+                <p>
+
+                    <strong>Applied On:</strong>
+
+                    <%= application.createdAt.toDateString() %>
+
+                </p>
+
+
+                <hr>
+
+            </div>
+
+        <% }) %>
+
+
+    <% } %>
+
+
+</body>
+
+</html>
